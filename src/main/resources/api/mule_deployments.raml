@@ -1,0 +1,75 @@
+#%RAML 1.0
+types:
+  Book:
+    properties:
+      Title:
+        example: Ditadura Envergonhada
+        type: string
+      Author:
+        example: Elio Gaspari
+        type: string
+      Release-date:
+        example: 2022-07-16
+        type: date-only
+      id:
+        example: Example
+        type: string
+      ISBN:
+        example: 85-359-0277-5
+        type: string
+annotationTypes:
+  Common:
+    type: any
+  Business:
+    type: any
+securitySchemes:
+  SecurityScheme:
+    type: Basic Authentication
+title: Mule test
+baseUri: /api/v1/
+mediaType:
+  - application/json
+version: 1.0.0
+protocols:
+  - HTTPS
+/book:
+  get:
+    responses:
+      "200":
+        body:
+          items:
+            type: Book
+/live:
+  get:
+    responses:
+      "200":
+        body:
+          properties:
+            status:
+              example: success
+              type: string
+            time:
+              example: 2022-07-16T13:33:45.628Z
+              type: datetime
+              format: rfc3339
+/new-resource:
+  (Business): group
+/ready:
+  get:
+    responses:
+      "200":
+        body:
+          properties:
+            status:
+              example: success
+              type: string
+            time:
+              example: 2022-07-16T13:36:18.865Z
+              type: datetime
+              format: rfc3339
+(Common):
+  name: Group
+  description: Group annotation
+(Business):
+  name: Group
+  description: Group annotation
