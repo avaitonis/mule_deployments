@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="mule-deployments-routed3-suite.xml" />
+	<munit:test name="get:\book:mule_deployments-config-test" doc:id="a9f823a0-65e8-4803-a608-ce808c45d244" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="bd026bb4-1471-4242-bdcd-05aabf134fcf" >
+				<munit:payload value="#[readUrl('classpath://getbookmuledeploymentsconfigtest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getbookmuledeploymentsconfigtest\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getbookmuledeploymentsconfigtest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\book:mule_deployments-config" doc:id="708fdb93-c282-46f1-84fb-cf0e8c29ba05" name="get:\book:mule_deployments-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="fd01ad15-9d5e-4d2b-af06-8b838b6b5eb8" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="get:\book:mule_deployments-config" attributeName="message" />
+				</munit-tools:with-attributes>
+
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="get:\live:mule_deployments-config-test" doc:id="ef21197f-7934-4daa-aa89-9683e4089f0a" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="763884d5-4049-450d-b294-d12b4657b0c1" >
+				<munit:payload value="#[readUrl('classpath://getlivemuledeploymentsconfigtest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getlivemuledeploymentsconfigtest\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getlivemuledeploymentsconfigtest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\live:mule_deployments-config" doc:id="5edd180c-5912-42ac-9d58-5ada330e95c2" name="get:\live:mule_deployments-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="7e4f7c28-d8de-4060-a2ef-d2a6522b20cc" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="20954e85-12c5-4284-95ed-103b1ae4a653" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="get:\ready:mule_deployments-config-test" doc:id="2080df90-63c0-4bae-ac57-5c667a295e98" >
+		<munit:behavior >
+			<munit:set-event doc:name="Set Input" doc:id="5cfc326d-15bd-443c-b302-8e4738b37d7d" >
+				<munit:payload value="#[readUrl('classpath://getreadymuledeploymentsconfigtest\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getreadymuledeploymentsconfigtest\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getreadymuledeploymentsconfigtest\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to get:\ready:mule_deployments-config" doc:id="ba3a349f-c11f-4d56-904a-ad3fb9ef7a73" name="get:\ready:mule_deployments-config"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="cbad0455-506c-462a-a52a-3587326b3f3b" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getreadymuledeploymentsconfigtest::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+			<munit-tools:verify-call doc:name="Verify Logger" doc:id="426505f9-7415-476b-8cff-80d3f538102a" processor="logger" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="72eb86b0-5a98-4a47-99bc-8c6f0245f5eb" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+			<munit-tools:verify-call doc:name="Verify Transform Message" doc:id="049263d5-708a-4b3f-a823-017ad52c1827" processor="ee:transform" times="1">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="e034a226-d15f-4c38-9c5e-991c514713ab" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+			</munit-tools:verify-call>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

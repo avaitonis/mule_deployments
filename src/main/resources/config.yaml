@@ -1,0 +1,7 @@
+json:
+  logger:
+    application:
+      name: Mule_deployments
+      version: 1.0.1
+mule:
+  env: red
